@@ -1,7 +1,7 @@
 public class Futbolista extends Thread {
-    public static int NUM_JUGADORS = 11;
-    public static int NUM_TIRADES = 20;
-    public static float PROBABILITAT = 0.5f;
+    public static final int NUM_JUGADORS = 11;
+    public static final int NUM_TIRADES = 20;
+    public static final float PROBABILITAT = 0.5f;
 
     private int ngols;
     private int ntirades;
@@ -29,12 +29,16 @@ public class Futbolista extends Thread {
     public static void main(String[] args) {
         String[] noms = {"Piqué", "Vinicius", "Torres", "Ramos", "Ronaldo", "Lewan", "Belli", "Arnau","Aspas","Messi","MBapé"};
         Futbolista[] jugadors = new Futbolista[NUM_JUGADORS];
-
+        
+        for(int i =0; i < NUM_JUGADORS; i++){
+            jugadors[i] = new Futbolista(noms[i]);
+        }
+        
         System.out.println("Inici dels xuts ------------------------");
         for(int i = 0; i < NUM_JUGADORS; i++){
-            jugadors[i] = new Futbolista(noms[i]);
             jugadors[i].start();
         }
+
         for (int i = 0; i < NUM_JUGADORS; i++) {
             try {
                 jugadors[i].join();
@@ -43,9 +47,9 @@ public class Futbolista extends Thread {
             }
         }
         System.out.println("Fi dels xuts ---------------------------");
-        System.out.println("Estadístiques");
+        System.out.println("--- Estadístiques ------");
         for (int i = 0; i < NUM_JUGADORS; i++) {
-            System.out.println(jugadors[i].getName() + " -> " + jugadors[i].getNgols() + " gols");
+            System.out.printf("%-8s -> %2d gols%n",jugadors[i].getName(), jugadors[i].getNgols());
         }
     }
 }
